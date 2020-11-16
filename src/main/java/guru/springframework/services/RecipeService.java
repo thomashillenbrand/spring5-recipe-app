@@ -2,11 +2,11 @@ package guru.springframework.services;
 
 import guru.springframework.domain.Recipe;
 
-import java.util.List;
+import java.util.Set;
 
 public interface RecipeService {
 
-    List<Recipe> getRecipes();
+    Set<Recipe> getRecipes();
 
     Recipe save(Recipe recipe);
 

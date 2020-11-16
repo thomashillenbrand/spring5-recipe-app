@@ -10,6 +10,8 @@ import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
@@ -22,7 +24,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @Component // since it implements command lin runer, when the app is started , it will run this method
-public class DataLoader implements CommandLineRunner {
+public class DataLoader implements CommandLineRunner, ApplicationListener<ContextRefreshedEvent> {
 
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
@@ -35,7 +37,18 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+
+        System.out.println("Enter onApplicationEvent");
+        System.out.println(">>> EVENT: "+event.toString());
+        System.out.println("Exit onApplicationEvent");
+
+    }
+
+    @Override
     public void run(String... args) throws Exception {
+
+        System.out.println("Enter run");
 
         // Get Categories
         Optional<Category> mexicanCategoryOptional = categoryRepository.findByDescription("Mexican");
@@ -169,6 +182,9 @@ public class DataLoader implements CommandLineRunner {
         chickenTacoRecipe.setNotes(chickenTacoNotes);
 
         recipeRepository.save(chickenTacoRecipe);
+
+        System.out.println("Recipes loaded . . . ");
+        System.out.println("Exit run");
 
     }
 

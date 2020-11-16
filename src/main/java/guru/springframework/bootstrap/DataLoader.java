@@ -40,7 +40,7 @@ public class DataLoader implements CommandLineRunner, ApplicationListener<Contex
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         System.out.println("Enter onApplicationEvent");
-        System.out.println(">>> EVENT: "+event.toString());
+        System.out.println(">>> EVENT: " + event.toString());
         System.out.println("Exit onApplicationEvent");
 
     }
@@ -105,15 +105,15 @@ public class DataLoader implements CommandLineRunner, ApplicationListener<Contex
         directionsSB.append("4 Serve: Serve immediately, or if making a few hours ahead, place plastic wrap on the surface of the guacamole and press down to cover it and to prevent air reaching it. (The oxygen in the air causes oxidation which will turn the guacamole brown.) Refrigerate until ready to serve.");
         guacRecipe.setDirections(directionsSB.toString());
 
-        guacRecipe.getIngredients().add(new Ingredient("ripe avocados", new BigDecimal(2), null, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("salt", new BigDecimal(.25), tsp, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("minced red onion or thinly sliced green onion", new BigDecimal(2), tbsp, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("serrano chiles", new BigDecimal(1), null, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("cilantro", new BigDecimal(2), tbsp, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("black pepper", new BigDecimal(1), dash, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("ripe tomato", new BigDecimal(.5), null, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("red radish, garnish", new BigDecimal(1), null, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("tortilla chips", null, null, guacRecipe));
+        guacRecipe.addIngredient(new Ingredient("ripe avocados", new BigDecimal(2), null));
+        guacRecipe.addIngredient(new Ingredient("salt", new BigDecimal(.25), tsp));
+        guacRecipe.addIngredient(new Ingredient("minced red onion or thinly sliced green onion", new BigDecimal(2), tbsp));
+        guacRecipe.addIngredient(new Ingredient("serrano chiles", new BigDecimal(1), null));
+        guacRecipe.addIngredient(new Ingredient("cilantro", new BigDecimal(2), tbsp));
+        guacRecipe.addIngredient(new Ingredient("black pepper", new BigDecimal(1), dash));
+        guacRecipe.addIngredient(new Ingredient("ripe tomato", new BigDecimal(.5), null));
+        guacRecipe.addIngredient(new Ingredient("red radish, garnish", new BigDecimal(1), null));
+        guacRecipe.addIngredient(new Ingredient("tortilla chips", null, null));
 
         Notes guacNotes = new Notes(guacRecipe);
         guacNotes.setRecipeNotes("Guacamole has a role in the kitchen beyond a party dip, of course. " +
@@ -152,27 +152,27 @@ public class DataLoader implements CommandLineRunner, ApplicationListener<Contex
                 "Wrap warmed tortillas in a tea towel to keep them warm until serving.\n" +
                 "\n" +
                 "5 Assemble the tacos: Slice the chicken into strips. On each tortilla, place a small handful of arugula. Top with chicken slices, sliced avocado, radishes, tomatoes, and onion slices. Drizzle with the thinned sour cream. Serve with lime wedges.\n");
-        
-        chickenTacoRecipe.getIngredients().add(new Ingredient("ancho chili powder", new BigDecimal(2), tbsp, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("dried oregano", new BigDecimal(1), tsp, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("dried cumin", new BigDecimal(1), tsp, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("sugar", new BigDecimal(1), tsp, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("salt", new BigDecimal(0.5), tsp, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("finely chopped garlic clove", new BigDecimal(1), null, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("orange zest", new BigDecimal(1), tbsp, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("orange juice", new BigDecimal(3), tbsp, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("olive oil", new BigDecimal(2), tbsp, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("skinless, boneless chicken thighs", new BigDecimal(4), null, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("small corn tortillas", new BigDecimal(8), null, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("baby arugula", new BigDecimal(3), cup, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("medium ripe avocados", new BigDecimal(2), null, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("radishes, thinly sliced", new BigDecimal(4), null, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("cherry tomatoes, halved", new BigDecimal(0.5), pint, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("red onion, thinly sliced", new BigDecimal(0.25), null, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("roughly chopped cilantro", null, null, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("sour cream", new BigDecimal(0.5), cup, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("milk", new BigDecimal(0.25), cup, chickenTacoRecipe));
-        chickenTacoRecipe.getIngredients().add(new Ingredient("lime", new BigDecimal(1), null, chickenTacoRecipe));
+
+        chickenTacoRecipe.addIngredient(new Ingredient("ancho chili powder", new BigDecimal(2), tbsp));
+        chickenTacoRecipe.addIngredient(new Ingredient("dried oregano", new BigDecimal(1), tsp));
+        chickenTacoRecipe.addIngredient(new Ingredient("dried cumin", new BigDecimal(1), tsp));
+        chickenTacoRecipe.addIngredient(new Ingredient("sugar", new BigDecimal(1), tsp));
+        chickenTacoRecipe.addIngredient(new Ingredient("salt", new BigDecimal(0.5), tsp));
+        chickenTacoRecipe.addIngredient(new Ingredient("finely chopped garlic clove", new BigDecimal(1), null));
+        chickenTacoRecipe.addIngredient(new Ingredient("orange zest", new BigDecimal(1), tbsp));
+        chickenTacoRecipe.addIngredient(new Ingredient("orange juice", new BigDecimal(3), tbsp));
+        chickenTacoRecipe.addIngredient(new Ingredient("olive oil", new BigDecimal(2), tbsp));
+        chickenTacoRecipe.addIngredient(new Ingredient("skinless, boneless chicken thighs", new BigDecimal(4), null));
+        chickenTacoRecipe.addIngredient(new Ingredient("small corn tortillas", new BigDecimal(8), null));
+        chickenTacoRecipe.addIngredient(new Ingredient("baby arugula", new BigDecimal(3), cup));
+        chickenTacoRecipe.addIngredient(new Ingredient("medium ripe avocados", new BigDecimal(2), null));
+        chickenTacoRecipe.addIngredient(new Ingredient("radishes, thinly sliced", new BigDecimal(4), null));
+        chickenTacoRecipe.addIngredient(new Ingredient("cherry tomatoes, halved", new BigDecimal(0.5), pint));
+        chickenTacoRecipe.addIngredient(new Ingredient("red onion, thinly sliced", new BigDecimal(0.25), null));
+        chickenTacoRecipe.addIngredient(new Ingredient("roughly chopped cilantro", null, null));
+        chickenTacoRecipe.addIngredient(new Ingredient("sour cream", new BigDecimal(0.5), cup));
+        chickenTacoRecipe.addIngredient(new Ingredient("milk", new BigDecimal(0.25), cup));
+        chickenTacoRecipe.addIngredient(new Ingredient("lime", new BigDecimal(1), null));
 
         chickenTacoRecipe.getCategories().add(fastFoodCategory);
         chickenTacoRecipe.getCategories().add(mexCategory);

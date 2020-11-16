@@ -20,6 +20,12 @@ public class Notes {
     @Lob // will store in in clob field in database (bypass character limit)
     private String recipeNotes;
 
+    public Notes() {}
+
+    public Notes(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
     public Long getId() {
         return id;
     }

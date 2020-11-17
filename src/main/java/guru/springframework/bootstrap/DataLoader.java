@@ -9,10 +9,12 @@ import guru.springframework.domain.UnitOfMeasure;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,6 +25,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Optional;
 
+@Slf4j
 @Component // since it implements command lin runer, when the app is started , it will run this method
 public class DataLoader implements CommandLineRunner, ApplicationListener<ContextRefreshedEvent> {
 
@@ -39,16 +42,17 @@ public class DataLoader implements CommandLineRunner, ApplicationListener<Contex
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        System.out.println("Enter onApplicationEvent");
-        System.out.println(">>> EVENT: " + event.toString());
-        System.out.println("Exit onApplicationEvent");
+        log.debug("Enter onApplicationEvent");
+        log.debug(">>> EVENT: " + event.toString());
+        log.debug("Exit onApplicationEvent");
 
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
 
-        System.out.println("Enter run");
+        log.debug("Enter run");
 
         // Get Categories
         Optional<Category> mexicanCategoryOptional = categoryRepository.findByDescription("Mexican");
@@ -62,6 +66,8 @@ public class DataLoader implements CommandLineRunner, ApplicationListener<Contex
         Category mexCategory = mexicanCategoryOptional.get();
         Category americanCategory = americanCategoryOptional.get();
         Category fastFoodCategory = fastFoodCategoryOptional.get();
+
+        log.debug(">>> Categories loaded . . . ");
 
         // Get UnitsOfMeasure
         Optional<UnitOfMeasure> tspOptional = unitOfMeasureRepository.findByUom("Teaspoon");
@@ -81,6 +87,8 @@ public class DataLoader implements CommandLineRunner, ApplicationListener<Contex
         UnitOfMeasure dash = dashOptional.get();
         UnitOfMeasure pint = pintOptional.get();
         UnitOfMeasure cup = cupOptional.get();
+
+        log.debug(">>> UnitOfMeasures loaded . . . ");
 
         // GUACAMOLE RECIPE
         Recipe guacRecipe = new Recipe();
@@ -126,7 +134,6 @@ public class DataLoader implements CommandLineRunner, ApplicationListener<Contex
         guacRecipe.getCategories().add(americanCategory);
 
         recipeRepository.save(guacRecipe);
-
 
         // CHICKEN TACOS RECIPE
         Recipe chickenTacoRecipe = new Recipe();
@@ -183,13 +190,14 @@ public class DataLoader implements CommandLineRunner, ApplicationListener<Contex
 
         recipeRepository.save(chickenTacoRecipe);
 
-        System.out.println("Recipes loaded . . . ");
-        System.out.println("Exit run");
+        log.debug(">>> Recipes loaded . . . ");
+        log.debug("Exit run");
 
     }
 
     public Byte[] convertImageToByeArray(URL imageUrl) throws IOException {
 
+        log.debug("Enter convertImageToByeArray() for: "+imageUrl.toString());
         Byte[] imageByteArrayObj = null;
         try {
             BufferedImage image = ImageIO.read(imageUrl);
@@ -201,8 +209,9 @@ public class DataLoader implements CommandLineRunner, ApplicationListener<Contex
             Arrays.setAll(imageByteArrayObj, b -> imageByteArray[b]);
 
         } catch (IOException ex) {
-            System.out.println("Unable to find image");
+            log.debug(">>> Unable to find image");
         }
+        log.debug("Exit convertImageToByeArray()");
         return imageByteArrayObj;
     }
 }

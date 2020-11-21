@@ -24,14 +24,14 @@ class UnitOfMeasureRepositoryIT {
     }
 
     @Test
-    void findByUomTeaspoon() {
+    void findByUomTeaspoonTest() {
         Optional<UnitOfMeasure> teaspoonOptional = unitOfMeasureRepository.findByUom("Teaspoon");
         assertEquals("Teaspoon", teaspoonOptional.get().getUom());
 
     }
 
     @Test
-    void findByUomCup() {
+    void findByUomCupTest() {
         Optional<UnitOfMeasure> cupOptional = unitOfMeasureRepository.findByUom("Cup");
         assertEquals("Cup", cupOptional.get().getUom());
 

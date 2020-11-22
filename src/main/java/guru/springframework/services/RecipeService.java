@@ -1,5 +1,6 @@
 package guru.springframework.services;
 
+import guru.springframework.commands.RecipeCommand;
 import guru.springframework.domain.Recipe;
 
 import java.util.Set;
@@ -10,6 +11,6 @@ public interface RecipeService {
 
     Recipe getRecipeById(Long id);
 
-    Recipe save(Recipe recipe);
+    RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand);
 
 }

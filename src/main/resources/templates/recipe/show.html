@@ -3,112 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <link href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
-    <title>Title</title>
+    <title th:text="'View Recipe: '+${recipe.description}">View Recipe: ${recipe.description}</title>
 </head>
 <body>
 
-<div class="container-fluid" style="margin-top: 20px">
+<!--/*@thymesVar id="recipe" type="com.resolutech.recipe.domain.Recipe"*/-->
+<div class="container-fluid mt-4 mb-4">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="card-group">
-                <div class="card border-primary">
-                    <div class="card-header">
-                        <h1 class="card-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+        <div class="col-lg-9 mx-auto">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title" th:text="${recipe.description}">Recipe Description Here!</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5>Categories:</h5>
+                        </div>
+                        <div class="col-md-9">
+                            <ul>
+                                <li th:each="category : ${recipe.categories}" th:text="${category.description}">
+                                    category
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h5>Categories:</h5>
-                            </div>
-                            <div class="col-md-9">
-                                <ul>
-                                    <li>cat one</li>
-                                    <li>cat two</li>
-                                    <li>cat three</li>
-                                </ul>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5>Prep Time:</h5>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h5>Prep Time:</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <p>30 min</p>
-                            </div>
-                            <div class="col-md-3">
-                                <h5>Difficulty:</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <p>Easy</p>
-                            </div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.prepTime}+' min'">X min</p>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h5>Cooktime:</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <p>30 min</p>
-                            </div>
-                            <div class="col-md-3">
-                                <h5>Servings:</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <p>4</p>
-                            </div>
+                        <div class="col-md-3">
+                            <h5>Difficulty:</h5>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h5>Source:</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <p>30 min</p>
-                            </div>
-                            <div class="col-md-3">
-                                <h5>URL:</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <p>http://www.example.com</p>
-                            </div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.difficulty}">difficulty</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5>Cook Time:</h5>
+                        </div>
+                        <div class="col-md-3" th:switch="${recipe.cookTime}">
+                            <p th:case="null">N/A</p>
+                            <p th:case="*" th:text="${recipe.cookTime} + ' min'">X min</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Servings:</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.servings}">X</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5>Source:</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.source}"></pth:text>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>URL:</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.url}">http://www.example.com</p>
                         </div>
                     </div>
                 </div>
-                <div class="card border-primary">
-                    <div class="card-header">
-                        <h1 class="card-title" >Ingredients</h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul>
-                                    <li>1 Cup of milk</li>
-                                    <li>1 Teaspoon of chocolate</li>
-                                    <li>1 Teaspoon of Sugar</li>
-                                </ul>
-                            </div>
+            </div>
+            <div class="card border-primary mt-4">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title">Ingredients</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul>
+                                <li th:each="ingredient : ${recipe.ingredients}"
+                                    th:text="(${ingredient.amount} ?: '') + ' ' + (${ingredient.uom?.uom} ?: '') + ' - ' + ${ingredient.description}">
+                                    Amount UOM Description
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="card border-primary">
-                    <div class="card-heading">
-                        <h1 class="card-title" >Directions</h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
-                            </div>
+            </div>
+            <div class="card border-primary mt-4">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title">Directions</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p th:text="${recipe.directions}">directions</p>
                         </div>
                     </div>
                 </div>
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h1 class="card-title" >Notes</h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
-                            </div>
+            </div>
+            <div class="card border-primary mt-4">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title">Notes</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p th:text="${recipe.notes?.recipeNotes}"></p>
                         </div>
                     </div>
                 </div>

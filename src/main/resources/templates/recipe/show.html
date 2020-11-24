@@ -82,7 +82,7 @@
                         <div class="col-md-12">
                             <ul>
                                 <li th:each="ingredient : ${recipe.ingredients}"
-                                    th:text="(${ingredient.amount} ?: '') + ' ' + (${ingredient.uom?.uom} ?: '') + ' - ' + ${ingredient.description}">
+                                    th:text="(${ingredient.amount} ?: '') + ' ' + (${ingredient.uom?.uom} ?: '') + ' ' + ${ingredient.description}">
                                     Amount UOM Description
                                 </li>
                             </ul>

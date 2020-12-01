@@ -83,8 +83,9 @@
                             <div class="col-md-11 ">
                                 <h3 class="card-title">Ingredients</h3>
                             </div>
-                            <div class="col-md-1">
-                                <a class="btn btn-default text-white" href="#" role="button"><u>Edit</u></a>
+                            <div class="col-md-1 pr-2">
+                                <a class="btn btn-outline-light" role="button"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}">View</a>
                             </div>
                         </div>
                     </div>

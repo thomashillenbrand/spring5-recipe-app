@@ -5,6 +5,7 @@ import guru.springframework.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("/recipe")
 public class RecipeController {
 
     RecipeService recipeService;
@@ -21,32 +21,36 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @RequestMapping("/{id}/show")
+    @GetMapping
+    @RequestMapping("/recipe/{id}/show")
     public String showRecipeById(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.getRecipeById(Long.valueOf(id)));
         return "recipe/show";
     }
 
-    @RequestMapping("/new")
+    @GetMapping
+    @RequestMapping("/recipe/new")
     public String addNewRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
         return "recipe/recipeform";
     }
 
-    @RequestMapping("/{id}/update")
+    @GetMapping
+    @RequestMapping("/recipe/{id}/update")
     public String updateRecipeById(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.getRecipeCommandById(Long.valueOf(id)));
         return "recipe/recipeform";
     }
 
     @PostMapping
-    @RequestMapping("")
+    @RequestMapping("/recipe")
     public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
 
-    @RequestMapping("/{id}/delete")
+    @GetMapping
+    @RequestMapping("/recipe/{id}/delete")
     public String deleteRecipeById(@PathVariable String id) {
         recipeService.deleteRecipeById(Long.valueOf(id));
         return "redirect:/";

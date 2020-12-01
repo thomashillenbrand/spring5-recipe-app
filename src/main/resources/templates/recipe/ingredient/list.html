@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <link href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
 
-    <title>Recipe Home</title>
+    <title>View Ingredients</title>
 
 </head>
 <body>
@@ -14,12 +14,12 @@
         <div class="col-lg-9 mx-auto">
             <div class="card border-primary">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="card-title">My Recipes</h3>
+                    <h3 class="card-title">Ingredients</h3>
                 </div>
 
                 <div class="card-body">
                     <table class="table table-responsive table-hover w-100 d-block d-md-table"
-                           th:if="${not #lists.isEmpty(recipes)}">
+                           th:if="${not #lists.isEmpty(recipe.ingredients)}">
                         <thead class="thead-light">
                         <tr>
                             <th>ID</th>
@@ -30,15 +30,21 @@
                         </tr>
                         </thead>
                         <tbody class="card-body">
-                        <tr class="table-row" th:each="recipe : ${recipes}">
+                        <tr class="table-row" th:each="ingredient : ${recipe.ingredients}">
                             <!-- @Important thymeleaf hint for autocomplete -->
                             <!--/*@thymesVar id="recipe" type="com.resolutech.recipe.domain.Recipe"*/-->
-                            <td class="table-cell" th:text="${recipe.id}">recipe_id</td>
-                            <td class="table-cell" th:text="${recipe.description}">description</td>
-                            <td class="table-cell"><a th:href="@{'/recipe/'+${recipe.id}+'/show'}">View</a>
-                            <td class="table-cell"><a th:href="@{'/recipe/'+${recipe.id}+'/update'}">Update</a>
+                            <td class="table-cell" th:text="${ingredient.id}">recipe_id</td>
+                            <td class="table-cell"
+                                th:text="(${ingredient.amount} ?: '') + ' ' + (${ingredient.uom?.uom} ?: '') + ' ' + ${ingredient.description}">
+                                description
+                            </td>
+                            <td class="table-cell"><a
+                                    th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+'${ingredient.id}'+'/show'}">View</a>
+                            <td class="table-cell"><a
+                                    th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+'${ingredient.id}'+'/update'}">Update</a>
                             <td class="table-cell"><a class="fa fa-trash-o"
-                                                      th:href="@{'/recipe/' + ${recipe.id} + '/delete'}">Delete</a></td>
+                                                      th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+'${ingredient.id}'+'/delete'}">Delete</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

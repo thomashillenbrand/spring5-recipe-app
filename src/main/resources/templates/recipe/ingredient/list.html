@@ -39,11 +39,11 @@
                                 description
                             </td>
                             <td class="table-cell"><a
-                                    th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+'${ingredient.id}'+'/show'}">View</a>
+                                    th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+${ingredient.id}+'/show'}">View</a>
                             <td class="table-cell"><a
-                                    th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+'${ingredient.id}'+'/update'}">Update</a>
+                                    th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+${ingredient.id}+'/update'}">Update</a>
                             <td class="table-cell"><a class="fa fa-trash-o"
-                                                      th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+'${ingredient.id}'+'/delete'}">Delete</a>
+                                                      th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+${ingredient.id}+'/delete'}">Delete</a>
                             </td>
                         </tr>
                         </tbody>

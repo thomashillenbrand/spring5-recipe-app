@@ -36,7 +36,7 @@
                                 <td th:text="(${ingredient.amount} ?: '') + ' ' + (${ingredient.uom?.uom} ?: '') + ' ' + ${ingredient.description}">
                                     Tasty Goodnees 3
                                 </td>
-                                <td><a href="#">Update</a></td>
+                                <td><a th:href="@{'/recipe/'+${ingredient.recipeId}+'/ingredient/'+${ingredient.id}+'/update'}">Update</a></td>
                                 <td><a href="#">Delete</a></td>
                             </tr>
                         </table>

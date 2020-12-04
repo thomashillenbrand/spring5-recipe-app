@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <title>Edit Ingredient</title>
+
+</head>
+<body>
+
+<div class="container-fluid mt-4 mb-4">
+    <div class="row">
+        <div class="col-lg-9 mx-auto">
+            <!--/*@thymesVar id="ingredient" type="guru.springframework.commands.IngredientCommand"*/-->
+            <form th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'} " th:object="${ingredient}">
+                <input th:field="*{id}" type="hidden"/>
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title">Edit Ingredient Information</h3>
+                    </div>
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <label>Description:</label>
+                                <input class="form-control" th:field="*{description}" type="text"/>
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <label>Amount:</label>
+                                <input class="form-control" th:field="*{amount}" type="number"/>
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <label>UOM:</label>
+                                <select class="form-control" name="uom.id">
+                                    <option label="-- No Value Selected --"
+                                            th:selected="${#strings.isEmpty(ingredient.uom)}"
+                                            value=""></option>
+                                    <option th:each="uomEach : ${uomList}"
+                                            th:selected="${uomEach.id.equals(ingredient.uom?.id)}"
+                                            th:text="${uomEach.uom}"
+                                            th:value="${uomEach.id}">Each
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary mt-2" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script src="/webjars/popper.js/2.0.2/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+</body>
+</html>

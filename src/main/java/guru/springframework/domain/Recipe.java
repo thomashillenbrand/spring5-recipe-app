@@ -1,6 +1,7 @@
 package guru.springframework.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,7 +19,8 @@ import javax.persistence.OneToOne;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Recipe {
     @Id
@@ -57,7 +59,7 @@ public class Recipe {
     }
 
     public void setNotes(Notes notes) {
-        if(notes != null) {
+        if (notes != null) {
             this.notes = notes;
             notes.setRecipe(this);
         }

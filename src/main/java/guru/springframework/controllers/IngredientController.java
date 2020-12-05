@@ -50,6 +50,24 @@ public class IngredientController {
     }
 
     @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    public String newIngredient(@PathVariable String recipeId, Model model) {
+
+        // make sure we have a recipe
+        RecipeCommand command = recipeService.getRecipeCommandById(Long.valueOf(recipeId));
+        if(command == null) throw new RuntimeException("No Recipe found for ID: "+recipeId);
+
+        IngredientCommand newIngredientCommand = new IngredientCommand();
+        newIngredientCommand.setRecipeId(Long.valueOf(recipeId));
+        newIngredientCommand.setUom(null);
+        model.addAttribute("ingredient", newIngredientCommand);
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
+    }
+
+    @GetMapping
     @RequestMapping("/recipe/{recipeId}/ingredient/{ingredientId}/update")
     public String updateRecipeIngredient (@PathVariable String recipeId, @PathVariable String ingredientId, Model model) {
         model.addAttribute("ingredient",

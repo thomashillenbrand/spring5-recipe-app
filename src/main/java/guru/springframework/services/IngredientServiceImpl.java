@@ -5,6 +5,7 @@ import guru.springframework.converters.IngredientCommandToIngredient;
 import guru.springframework.converters.IngredientToIngredientCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import guru.springframework.repositories.IngredientRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -20,16 +21,18 @@ public class IngredientServiceImpl implements IngredientService {
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
     private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
 
     public IngredientServiceImpl(IngredientToIngredientCommand ingredientToIngredientCommand,
                                  IngredientCommandToIngredient ingredientCommandToIngredient,
                                  UnitOfMeasureRepository unitOfMeasureRepository,
-                                 RecipeRepository recipeRepository) {
+                                 RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
 
         this.ingredientToIngredientCommand = ingredientToIngredientCommand;
         this.ingredientCommandToIngredient = ingredientCommandToIngredient;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
         this.recipeRepository = recipeRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @Override
@@ -114,9 +117,9 @@ public class IngredientServiceImpl implements IngredientService {
             if(ingredientOptional.isPresent()) {
                 log.debug("found ingredient to delete . . .");
                 Ingredient ingredientToDelete = ingredientOptional.get();
-                ingredientToDelete.setRecipe(null);
-                recipe.getIngredients().remove(ingredientToDelete); // see if this persists to DB AND if using optional is necessary
-                recipeRepository.save(recipe);
+                recipe.getIngredients().remove(ingredientToDelete);
+                ingredientRepository.delete(ingredientToDelete);
+                //recipeRepository.save(recipe);
             }
         }
 

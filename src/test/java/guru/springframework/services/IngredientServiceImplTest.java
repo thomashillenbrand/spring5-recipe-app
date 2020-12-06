@@ -7,6 +7,7 @@ import guru.springframework.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import guru.springframework.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import guru.springframework.repositories.IngredientRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +33,8 @@ class IngredientServiceImplTest {
     RecipeRepository recipeRepository;
     @Mock
     UnitOfMeasureRepository unitOfMeasureRepository;
+    @Mock
+    IngredientRepository ingredientRepository;
 
     IngredientService ingredientService;
 
@@ -44,7 +47,7 @@ class IngredientServiceImplTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient,
-                unitOfMeasureRepository, recipeRepository);
+                unitOfMeasureRepository, recipeRepository, ingredientRepository);
     }
 
     @Test
@@ -119,7 +122,8 @@ class IngredientServiceImplTest {
 
         // then
         verify(recipeRepository, times(1)).findById(anyLong());
-        verify(recipeRepository, times(1)).save(any(Recipe.class));
+        verify(ingredientRepository, times(1)).delete(any(Ingredient.class));
+        //verify(recipeRepository, times(1)).save(any(Recipe.class));
     }
 
 

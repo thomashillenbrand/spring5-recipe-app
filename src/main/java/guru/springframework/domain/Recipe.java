@@ -37,7 +37,7 @@ public class Recipe {
     @Lob
     private String directions;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<>();
 
     @Lob // store in db as blob object (large object storage)

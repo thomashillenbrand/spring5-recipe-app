@@ -78,7 +78,7 @@ public class IngredientServiceImpl implements IngredientService {
                 } else foundIngredient.setUom(null);
 
             } else {
-                if(command.getUom().getId() == null) command.setUom(null); // figure out what is happening here --> debug mode
+                if(command.getUom() == null || command.getUom().getId() == null) command.setUom(null); // figure out what is happening here --> debug mode
                 recipe.addIngredient(ingredientCommandToIngredient.convert(command)); // add ingredient to recipe
             }
 
@@ -94,6 +94,30 @@ public class IngredientServiceImpl implements IngredientService {
                         .filter(recipeIngredient -> recipeIngredient.getDescription().equals(command.getDescription())).findFirst();
             }
              return ingredientToIngredientCommand.convert(savedIngredientOptional.get());
+        }
+
+    }
+
+    @Override
+    public void deleteByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
+
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+        if(recipeOptional.isEmpty()) log.debug("recipe not found: "+recipeId);
+        else {
+            Recipe recipe = recipeOptional.get();
+            log.debug("Recipe found!");
+
+            Optional<Ingredient> ingredientOptional = recipe.getIngredients().stream()
+                    .filter(ingredient -> ingredient.getId().equals(ingredientId))
+                    .findFirst();
+
+            if(ingredientOptional.isPresent()) {
+                log.debug("found ingredient to delete . . .");
+                Ingredient ingredientToDelete = ingredientOptional.get();
+                ingredientToDelete.setRecipe(null);
+                recipe.getIngredients().remove(ingredientToDelete); // see if this persists to DB AND if using optional is necessary
+                recipeRepository.save(recipe);
+            }
         }
 
     }

@@ -8,8 +8,14 @@
 
 </head>
 <body>
-
-<h1>404 Not Found</h1>
+<div class="container-fluid mt-4 mb-4">
+    <div class="row">
+        <div class="col-lg-9 mx-auto">
+            <h1>404 Not Found</h1>
+            <p th:text="${exception.getMessage()}"></p>
+        </div>
+    </div>
+</div>
 
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 <script src="/webjars/popper.js/2.0.2/umd/popper.min.js"></script>

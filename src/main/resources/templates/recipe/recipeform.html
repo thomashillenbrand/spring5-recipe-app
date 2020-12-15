@@ -11,7 +11,12 @@
 <div class="container-fluid mt-4 mb-4">
     <div class="row">
         <div class="col-md-9 mx-auto">
-            <form th:action="@{/recipe/}" th:object="${recipe}" method="post">
+            <form method="post" th:action="@{/recipe/}" th:object="${recipe}">
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <p>Please correct the errors below</p>
+                </div>
+
                 <input th:field="*{id}" type="hidden"/>
                 <div class="card border-primary mt-4">
                     <div class="card-header bg-primary text-white">
@@ -21,7 +26,12 @@
                         <div class="row">
                             <div class="col-md-3 form-group">
                                 <label>Recipe Description:</label>
-                                <input class="form-control" th:field="*{description}" type="text"/>
+                                <input class="form-control" th:field="*{description}" type="text" th:errorclass="is-invalid"/>
+                                <span class="help-block text-danger" th:if="${#fields.hasErrors('description')}">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
+                                    </ul>
+                                </span>
                             </div>
                         </div>
                         <div class="row">
@@ -46,7 +56,12 @@
                         <div class="row">
                             <div class="col-md-3 form-group">
                                 <label>Prep Time (min):</label>
-                                <input class="form-control" th:field="*{prepTime}" type="text"/>
+                                <input class="form-control" th:field="*{prepTime}" type="text" th:errorclass="is-invalid"/>
+                                <span class="help-block text-danger" th:if="${#fields.hasErrors('prepTime')}">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('prepTime')}" th:text="${err}"/>
+                                    </ul>
+                                </span>
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>Cook Time (min):</label>
@@ -56,15 +71,21 @@
                                 <label>Difficulty:</label>
                                 <select class="form-control" th:field="*{difficulty}">
                                     <option th:each="difficultyValue : ${T(guru.springframework.domain.Difficulty).values()}"
-                                    th:value="${difficultyValue.name()}"
-                                    th:text="${difficultyValue.name()}">difficulty_value</option>
+                                            th:text="${difficultyValue.name()}"
+                                            th:value="${difficultyValue.name()}">difficulty_value
+                                    </option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3 form-group">
                                 <label>Servings:</label>
-                                <input class="form-control" th:field="*{servings}" type="text"/>
+                                <input class="form-control" th:field="*{servings}" type="text" th:errorclass="is-invalid"/>
+                                <span class="help-block text-danger" th:if="${#fields.hasErrors('servings')}">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('servings')}" th:text="${err}"/>
+                                    </ul>
+                                </span>
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>Source:</label>
@@ -72,7 +93,12 @@
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>URL:</label>
-                                <input class="form-control" th:field="*{url}" type="text"/>
+                                <input class="form-control" th:field="*{url}" type="text" th:errorclass="is-invalid"/>
+                                <span class="help-block text-danger" th:if="${#fields.hasErrors('url')}">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('url')}" th:text="${err}"/>
+                                    </ul>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -116,7 +142,13 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 form-group">
-                                <textarea class="form-control" rows="3" th:field="*{directions}"></textarea></div>
+                                <textarea class="form-control" rows="3" th:field="*{directions}" th:errorclass="is-invalid"/>
+                                <span class="help-block text-danger" th:if="${#fields.hasErrors('directions')}">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('directions')}" th:text="${err}"/>
+                                    </ul>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

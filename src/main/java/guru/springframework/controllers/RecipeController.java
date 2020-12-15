@@ -66,13 +66,4 @@ public class RecipeController {
         return modelAndView;
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormatException(Exception ex) {
-        log.error("Handling NumberFormatException: "+ex.getMessage());
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("400Error");
-        modelAndView.addObject("exception", ex);
-        return modelAndView;
-    }
 }

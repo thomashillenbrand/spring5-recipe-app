@@ -65,7 +65,12 @@
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>Cook Time (min):</label>
-                                <input class="form-control" th:field="*{cookTime}" type="text"/>
+                                <input class="form-control" th:field="*{cookTime}" type="text" th:errorclass="is-invalid"/>
+                                <span class="help-block text-danger" th:if="${#fields.hasErrors('cookTime')}">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('cookTime')}" th:text="${err}"/>
+                                    </ul>
+                                </span>
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>Difficulty:</label>

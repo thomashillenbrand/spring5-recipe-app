@@ -12,6 +12,7 @@ import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,13 +28,14 @@ import java.util.Optional;
 
 @Slf4j
 @Component // since it implements command lin runer, when the app is started , it will run this method
-public class DataLoader implements CommandLineRunner, ApplicationListener<ContextRefreshedEvent> {
+@Profile("default")
+public class DataLoaderH2 implements CommandLineRunner, ApplicationListener<ContextRefreshedEvent> {
 
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-    public DataLoader(RecipeRepository recipeRepository, CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+    public DataLoaderH2(RecipeRepository recipeRepository, CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
@@ -44,6 +46,7 @@ public class DataLoader implements CommandLineRunner, ApplicationListener<Contex
 
         log.debug("Enter onApplicationEvent");
         log.debug(">>> EVENT: " + event.toString());
+        log.debug(">>> Could do some action here . . .");
         log.debug("Exit onApplicationEvent");
 
     }

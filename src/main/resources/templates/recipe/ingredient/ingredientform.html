@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-lg-9 mx-auto">
             <!--/*@thymesVar id="ingredient" type="guru.springframework.commands.IngredientCommand"*/-->
-            <form th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'} " th:object="${ingredient}">
+            <form method="post" th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'} " th:object="${ingredient}">
                 <input th:field="*{id}" type="hidden"/>
                 <div class="card border-primary">
                     <div class="card-header bg-primary text-white">
